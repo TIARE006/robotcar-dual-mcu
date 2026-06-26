@@ -4,8 +4,8 @@
 
 H750 to F407 UART bridge:
 
-- H750 `PA9 / USART1_TX` -> F407 control UART RX
-- H750 `PA10 / USART1_RX` -> F407 control UART TX
+- H750 `PA9 / USART1_TX` -> F407 `PD6 / USART2_RX`
+- H750 `PA10 / USART1_RX` -> F407 `PD5 / USART2_TX`
 - H750 `GND` -> F407 `GND`
 
 ## WiFi Flow
