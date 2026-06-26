@@ -1,0 +1,31 @@
+.DS_Store
+Thumbs.db
+
+# Build outputs
+build/
+**/build/
+*.o
+*.d
+*.elf
+*.bin
+*.hex
+*.map
+*.lst
+
+# IDE/user generated files
+*.uvguix.*
+*.uvoptx
+*.dep
+*.bak
+Output/
+Listing/
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Local credentials
+firmware/h750_wifi_bridge/User/Test/wifi_config.h
+
+# Local toolchain drops
+toolchains/
