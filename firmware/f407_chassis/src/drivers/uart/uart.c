@@ -125,8 +125,8 @@ void uart2_write(const char *text)
 
 void uart3_init(uint32_t baudrate)
 {
-    board_gpio_af_init((board_pwm_pin_t){ BOARD_GPIO_PORT_D, 8U, 7U }, 0);
-    board_gpio_af_init((board_pwm_pin_t){ BOARD_GPIO_PORT_D, 9U, 7U }, 0);
+    board_gpio_af_init((board_pwm_pin_t){ BOARD_GPIO_PORT_C, 10U, 7U }, 0);
+    board_gpio_af_init((board_pwm_pin_t){ BOARD_GPIO_PORT_C, 11U, 7U }, 0);
 
     RCC_APB1ENR |= RCC_USART3_EN;
     (void)RCC_APB1ENR;

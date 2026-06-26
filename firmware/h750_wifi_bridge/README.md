@@ -17,8 +17,8 @@ Copy `User/Test/wifi_config.example.h` to `User/Test/wifi_config.h` and fill in 
 
 ## Wiring To F407
 
-- H750 `PA9 / USART1_TX` -> F407 `PD6 / USART2_RX`
-- H750 `PA10 / USART1_RX` -> F407 `PD5 / USART2_TX`
+- H750 `PA9 / USART1_TX` -> F407 `PC11 / USART3_RX`
+- H750 `PA10 / USART1_RX` -> F407 `PC10 / USART3_TX`
 - H750 `GND` -> F407 `GND`
 
 USART1 is configured as `115200 8N1`.
