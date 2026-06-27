@@ -1,6 +1,8 @@
 # F407 UART Protocol
 
-Serial settings: `115200 8N1`.
+F407 USB/UART1 debug/control settings: `115200 8N1`.
+
+H750 WiFi bridge to F407 UART3 settings: `115200 8N1`.
 
 Commands are ASCII lines terminated by newline.
 
@@ -38,13 +40,13 @@ M <index> <speed>
 
 ```text
 S          stop all motors
-G          print current status
-T          print current trims/status
-R          enable closed-loop mode
-C          disable closed-loop mode
-D          run diagnostics/demo if enabled
-P 1        enable periodic telemetry
-P 0        disable periodic telemetry
+G          print current wheel trims
+R          print encoder counts
+C          reset encoder counts
+D          print closed-loop diagnostics
+P 1        enable closed-loop mode
+P 0        disable closed-loop mode
+T n trim   set wheel trim, n is 1..4, trim is 500..1500
 ```
 
 Current wheel trim values used during bring-up:

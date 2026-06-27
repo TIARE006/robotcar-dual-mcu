@@ -16,7 +16,7 @@ Mac / PC
   v
 STM32H750_W5500_MINI + ESP-12F
   |
-  | USART1 115200 8N1: H7 PA9/PA10 -> F407 PC11/PC10
+  | USART3 115200 8N1: H7 PD8/PD9 -> F407 PC11/PC10
   v
 STM32F407 Ros Robot Controller V1.2
   |
@@ -65,6 +65,7 @@ firmware/h750_wifi_bridge/User/Test/wifi_config.example.h
 WiFi control:
 
 ```sh
+python3 tools/host/wifi_keyboard.py --host 192.168.1.73
 python3 tools/host/wifi_car_client.py --host 192.168.1.73 --cmd f
 python3 tools/host/wifi_car_client.py --host 192.168.1.73 --cmd stop
 ```

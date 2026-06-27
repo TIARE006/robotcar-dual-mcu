@@ -63,7 +63,7 @@ def scan_for_robot(port: int, timeout: float = 0.25) -> str | None:
 
 def send_and_print(sock: socket.socket, command: str) -> None:
     sock.sendall(command.encode("ascii"))
-    sock.settimeout(0.15)
+    sock.settimeout(1.0)
     chunks = []
     while True:
         try:
@@ -76,6 +76,12 @@ def send_and_print(sock: socket.socket, command: str) -> None:
     if chunks:
         sys.stdout.write(b"".join(chunks).decode("ascii", errors="replace"))
         sys.stdout.flush()
+
+
+def send_once(host: str, port: int, command: str) -> None:
+    with socket.create_connection((host, port), timeout=5.0) as sock:
+        sock.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
+        send_and_print(sock, command)
 
 
 def interactive(sock: socket.socket) -> None:
@@ -111,14 +117,15 @@ def main() -> int:
             raise SystemExit("Robot not found. Pass --host manually if you know its IP.")
         print(f"Robot found at {host}:{args.port}")
 
-    with socket.create_connection((host, args.port), timeout=5.0) as sock:
-        if args.cmd:
-            command = PRESETS.get(args.cmd, args.cmd + "\n")
-            send_and_print(sock, command)
-            if args.duration > 0:
-                time.sleep(args.duration)
-                send_and_print(sock, PRESETS["stop"])
-        else:
+    if args.cmd:
+        command = PRESETS.get(args.cmd, args.cmd + "\n")
+        send_once(host, args.port, command)
+        if args.duration > 0:
+            time.sleep(args.duration)
+            send_once(host, args.port, PRESETS["stop"])
+    else:
+        with socket.create_connection((host, args.port), timeout=5.0) as sock:
+            sock.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
             interactive(sock)
     return 0
 

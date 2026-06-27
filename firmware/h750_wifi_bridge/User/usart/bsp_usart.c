@@ -33,15 +33,15 @@ void UARTx_Config(void)
 	UARTx_TX_GPIO_CLK_ENABLE();
 	
 	/* 配置串口2时钟源*/
-	RCC_PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_USART1;
-	RCC_PeriphClkInit.Usart16ClockSelection = RCC_USART16CLKSOURCE_D2PCLK2;
+	RCC_PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_UARTx;
+	RCC_PeriphClkInit.Usart234578ClockSelection = RCC_UARTxCLKSOURCE_D2PCLK1;
 	HAL_RCCEx_PeriphCLKConfig(&RCC_PeriphClkInit);
 	/* 使能 UART 时钟 */
 	UARTx_CLK_ENABLE();
 
-	/**USART1 GPIO Configuration    
-    PA9     ------> USART1_TX
-    PA10    ------> USART1_RX 
+	/**USART3 GPIO Configuration
+    PD8     ------> USART3_TX
+    PD9     ------> USART3_RX
 	*/
 	/* 配置Tx引脚为复用功能  */
 	GPIO_InitStruct.Pin = UARTx_TX_PIN;
@@ -58,7 +58,7 @@ void UARTx_Config(void)
 	
 	/* 配置串USARTx 模式 */
 	UartHandle.Instance = UARTx;
-	UartHandle.Init.BaudRate = 115200;
+	UartHandle.Init.BaudRate = UARTx_BAUDRATE;
 	UartHandle.Init.WordLength = UART_WORDLENGTH_8B;
 	UartHandle.Init.StopBits = UART_STOPBITS_1;
 	UartHandle.Init.Parity = UART_PARITY_NONE;

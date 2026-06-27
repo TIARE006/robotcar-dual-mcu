@@ -8,7 +8,7 @@
 #include "drivers/uart/uart.h"
 
 #define COMMAND_BUFFER_SIZE 48U
-#define CONTROL_TIMEOUT_LOOPS 2000000UL
+#define CONTROL_TIMEOUT_LOOPS 20000UL
 
 typedef struct {
     char buffer[COMMAND_BUFFER_SIZE];
@@ -237,8 +237,6 @@ static void process_command(command_port_t *port, const char *command)
 
     if (*command == 'S' || *command == 's') {
         stop_chassis();
-        port->write_text("OK S\n");
-        status_led_pulse();
         return;
     }
 
@@ -248,8 +246,6 @@ static void process_command(command_port_t *port, const char *command)
             parse_int(&command, &strafe) &&
             parse_int(&command, &rotate)) {
             apply_velocity(forward, strafe, rotate);
-            port->write_text("OK V\n");
-            status_led_pulse();
             return;
         }
     }
@@ -350,10 +346,6 @@ void motor_demo_app_init(void)
 
     uart1_write("\nROS Robot Controller download UART control ready\n");
     uart1_write("Commands: V, M, S, G, R, C, D, P <0|1>, T <wheel 1-4> <trim 500-1500>.\n");
-    uart3_write("\nROS Robot Controller mecanum serial control on UART control port\n");
-    uart3_write("Commands: V, M, S, G, R, C, D, P <0|1>, T <wheel 1-4> <trim 500-1500>.\n");
-    uart3_write("+x forward, +y right, +z rotate right. Trim is permille, 1000 = 100%.\n");
-    uart3_write("K2 is emergency stop.\n");
     uart2_write("\nROS Robot Controller bluetooth UART ready\n");
     uart2_write("Commands: V, M, S, G, R, C, D, P <0|1>, T <wheel 1-4> <trim 500-1500>.\n");
     status_led_pulse();
